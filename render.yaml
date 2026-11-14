@@ -1,0 +1,37 @@
+# Render Blueprint — single web service that serves the API, Socket.io and the built React app.
+# Docs: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: campusconnect
+    runtime: node
+    plan: free
+    buildCommand: npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SERVE_CLIENT
+        value: "true"
+      - key: MONGO_URI
+        sync: false            # paste your MongoDB Atlas connection string in the dashboard
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CLIENT_URL
+        sync: false            # e.g. https://campusconnect.onrender.com
+      - key: COOKIE_SAMESITE
+        value: lax
+      - key: ALLOWED_EMAIL_DOMAINS
+        value: edu,ac.in,edu.in
+      - key: REQUIRE_EMAIL_VERIFICATION
+        value: "true"
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: EMAIL_FROM
+        sync: false
